@@ -26,7 +26,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         repository.count()
                 .filter(count -> count == 0)
-                .map(count -> Flux.fromIterable(SAMPLE_ARTICLES)
+                .flatMapMany(count -> Flux.fromIterable(SAMPLE_ARTICLES)
                             .flatMap(article -> repository.insert(article))
                 )
                 .log()
