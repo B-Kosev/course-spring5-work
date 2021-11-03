@@ -2,15 +2,19 @@ package course.spring.service.impl;
 
 import course.spring.dao.ArticleRepository;
 import course.spring.model.Article;
+import course.spring.qualifiers.Mock;
 import course.spring.service.ArticleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.List;
 
-@Service("provider")
+//@Service("mockProvider")
+//@Mock
+//@Order(1)
 public class MockArticleProvider implements ArticleProvider {
     @Autowired
     private ArticleRepository articleRepository;
