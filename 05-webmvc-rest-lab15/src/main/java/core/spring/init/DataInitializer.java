@@ -10,17 +10,15 @@ import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-    public static final List<Article> SAMPLE = List.of(
-            new Article("Article 1", "Sample text for article 1."),
-            new Article("Article 2", "Sample text for article 2."),
-            new Article("Article 3", "Sample text for article 3.")
+    public static final List<Article> SAMPLE_ARTICLES = List.of(
+            new Article("New in Spring 5", "WebFlux is here ..."),
+            new Article("DI in Spring", "To @Autowitre or not to autowire ..."),
+            new Article("AOP for Everybody", "Spring AOP is good middle ground ...")
     );
-
     @Autowired
-    private ArticleRepo repository;
-
+    private ArticleRepo articleRepository;
     @Override
     public void run(String... args) throws Exception {
-        SAMPLE.forEach(repository::insert);
+        SAMPLE_ARTICLES.forEach(articleRepository::insert);
     }
 }

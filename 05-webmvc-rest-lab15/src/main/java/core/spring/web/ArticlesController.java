@@ -1,12 +1,13 @@
 package core.spring.web;
 
 import core.spring.dao.ArticleRepo;
-import core.spring.exception.EntitiNotFoundException;
+import core.spring.exception.EntityNotFoundException;
 import core.spring.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -14,25 +15,29 @@ import java.util.List;
 @RequestMapping("/api/articles")
 public class ArticlesController {
     @Autowired
-    private ArticleRepo repository;
+    private ArticleRepo articleRepo;
 
     @GetMapping
     public List<Article> getArticles() {
-        return repository.findAll();
+        return articleRepo.findAll();
     }
 
     @GetMapping("/{id}")
-    public Article getArticleById(@PathVariable String id) {
-        return repository.findById(id).orElseThrow(() -> new EntitiNotFoundException(String.format("Entity with id %s not found", id)));
+    public Article getArticles(@PathVariable String id) {
+        return articleRepo.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(String.format("Entity with ID=%s does not exist.", id)));
     }
 
     @PostMapping
     public ResponseEntity<Article> addArticle(@RequestBody Article article) {
-        Article created = repository.insert(article);
-        return ResponseEntity.created(MvcUriComponentsBuilder
-                .fromMethodName(ArticlesController.class, "addArticle", Article.class)
-                .pathSegment("{id}")
-                .buildAndExpand(created.getId())
-                .toUri()).body(created);
+        Article created = articleRepo.insert(article);
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .pathSegment("{id}").buildAndExpand(created.getId()).toUri()
+//                MvcUriComponentsBuilder.
+//                        fromMethodName(ArticlesController.class, "addArticle", Article.class)
+//                        .pathSegment("{id}").buildAndExpand(created.getId()).toUri()
+        ).body(created);
     }
+
 }
