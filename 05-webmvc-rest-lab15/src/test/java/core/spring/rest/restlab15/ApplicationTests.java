@@ -1,4 +1,4 @@
-package core.spring.restlab15;
+package core.spring.rest.restlab15;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

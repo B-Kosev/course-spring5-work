@@ -1,7 +1,7 @@
-package core.spring.init;
+package core.spring.rest.init;
 
-import core.spring.dao.ArticleRepo;
-import core.spring.model.Article;
+import core.spring.rest.dao.ArticleRepo;
+import core.spring.rest.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,6 +19,8 @@ public class DataInitializer implements CommandLineRunner {
     private ArticleRepo articleRepository;
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("Initializing...");
         SAMPLE_ARTICLES.forEach(articleRepository::insert);
+        System.out.println("Finished initialization.");
     }
 }

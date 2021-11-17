@@ -1,4 +1,4 @@
-package core.spring.restlab15;
+package core.spring.rest;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-package core.spring.model;
+package core.spring.rest.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

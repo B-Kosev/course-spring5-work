@@ -1,12 +1,11 @@
-package core.spring.web;
+package core.spring.rest.web;
 
-import core.spring.dao.ArticleRepo;
+import core.spring.rest.dao.ArticleRepo;
 import core.spring.exception.EntityNotFoundException;
-import core.spring.model.Article;
+import core.spring.rest.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
