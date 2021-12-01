@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: articles
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, mappings, info, metrics, threaddump, heapdump, shutdown, beans, logging
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+info:
+  app:
+    name: Web MVC Blogs
+    description: Spring Web MVC demo using Spring Boot, Spring Data MongoDB, Spring Security and DDD
+    version: 0.1.0-SNAPSHOT
