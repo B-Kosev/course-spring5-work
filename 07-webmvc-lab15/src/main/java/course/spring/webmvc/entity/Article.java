@@ -38,4 +38,7 @@ public class Article {
 
     @Pattern(regexp = "[0-9a-f]{24}")
     private String authorId;
+
+    @
+    private String authorName;
 }

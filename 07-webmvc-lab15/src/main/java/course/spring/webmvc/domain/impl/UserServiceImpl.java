@@ -24,21 +24,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         List<User> users = userRepository.findAll();
-        users.forEach(user -> user.setPassword(null));
+        users.forEach(user -> user.setPassword(""));
         return users;
     }
 
     @Override
     public User findById(String id) {
         User found = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("User with ID=%s not found", id)));
-        found.setPassword(null);
+        found.setPassword("");
         return found;
     }
 
     @Override
     public User findByUsername(String username) {
         User found = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(String.format("User with username=%s not found", username)));
-        found.setPassword(null);
+        found.setPassword("");
         return found;
     }
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setActive(true);
         User created = userRepository.insert(user);
-        created.setPassword(null);
+        created.setPassword("");
         return created;
     }
 
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         user.setCreated(oldUser.getCreated());
         user.setModified(LocalDateTime.now());
         User updated = userRepository.save(user);
-        updated.setPassword(null);
+        updated.setPassword("");
         return user;
     }
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public User deleteById(String id) {
         User oldUser = findById(id);
         userRepository.deleteById(id);
-        oldUser.setPassword(null);
+        oldUser.setPassword("");
         return oldUser;
     }
 

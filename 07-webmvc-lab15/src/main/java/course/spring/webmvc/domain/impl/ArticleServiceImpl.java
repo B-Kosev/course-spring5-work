@@ -1,8 +1,10 @@
 package course.spring.webmvc.domain.impl;
 
 import course.spring.webmvc.dao.ArticleRepository;
+import course.spring.webmvc.dao.UserRepository;
 import course.spring.webmvc.domain.ArticleService;
 import course.spring.webmvc.entity.Article;
+import course.spring.webmvc.entity.User;
 import course.spring.webmvc.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +15,23 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
     private ArticleRepository articleRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, UserRepository userRepository) {
         this.articleRepository=articleRepository;
+        this.userRepository=userRepository;
     }
 
     @Override
     public List<Article> findAll() {
-        return articleRepository.findAll();
+        List<Article> articles = articleRepository.findAll();
+        articles.forEach(article -> article.setAuthorName(
+                userRepository.findById(
+                        article.getAuthorId())
+                        .orElseGet(() -> new User("","","",""))
+                        .getFullName()));
+        return articles;
     }
 
     @Override
