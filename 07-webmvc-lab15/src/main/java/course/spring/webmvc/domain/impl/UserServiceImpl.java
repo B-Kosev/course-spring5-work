@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository=userRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -31,19 +31,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(String id) {
         User found = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("User with ID=%s not found", id)));
-        found.setPassword("");
+        found.setPassword(null);
         return found;
     }
 
     @Override
     public User findByUsername(String username) {
-        User found = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(String.format("User with username=%s not found", username)));
-        found.setPassword("");
-        return found;
+        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(String.format("User '%s' not found.", username)));
     }
 
     @Override
-    public User createUser(User user) {
+    public User create(User user) {
         user.setId(null);
         user.setCreated(LocalDateTime.now());
         user.setModified(LocalDateTime.now());
@@ -56,13 +54,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User update(User user) {
         User oldUser = findById(user.getId());
         user.setUsername(oldUser.getUsername());
-        if (user.getPassword()==null || user.getPassword().length()==0){
+        if (user.getPassword() == null || user.getPassword().length() == 0) {
             user.setPassword(oldUser.getPassword());
-        }
-        else{
+        } else {
             PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
         }

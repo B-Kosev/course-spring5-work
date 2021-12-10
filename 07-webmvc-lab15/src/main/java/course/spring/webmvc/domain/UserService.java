@@ -8,8 +8,8 @@ public interface UserService {
     List<User> findAll();
     User findById(String id);
     User findByUsername(String username);
-    User createUser(User user);
-    User updateUser(User user);
+    User create(User user);
+    User update(User user);
     User deleteById(String id);
     long count();
 }

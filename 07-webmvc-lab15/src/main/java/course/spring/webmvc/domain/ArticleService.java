@@ -8,8 +8,8 @@ public interface ArticleService {
     List<Article> findAll();
     Article findById(String id);
     Article findByTitle(String title);
-    Article createArticle(Article article);
-    Article updateArticle(Article article);
-    void deleteById(String id);
+    Article create(Article article);
+    Article update(Article article);
+    Article deleteById(String id);
     long count();
 }

@@ -2,6 +2,7 @@ package course.spring.webmvc.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Document("articles")
+@Document(collection = "articles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +40,6 @@ public class Article {
     @Pattern(regexp = "[0-9a-f]{24}")
     private String authorId;
 
-    @
+    @Transient
     private String authorName;
 }

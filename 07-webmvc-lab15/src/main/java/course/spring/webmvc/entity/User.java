@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Document("users")
+@Document(collection = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,7 +48,7 @@ public class User implements UserDetails {
 
     private String roles = "AUTHOR";
 
-    private boolean active;
+    private boolean active = true;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime created = LocalDateTime.now();
@@ -56,16 +56,10 @@ public class User implements UserDetails {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime modified = LocalDateTime.now();
 
-    public String getFullName(){
-        return firstName+" "+lastName;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(getRoles()
-                .split(","))
-                .map(String::trim)
-                .map(role -> "ROLE_"+role)
+        return Arrays.stream(getRoles().split(",")).map(String::trim)
+                .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -87,6 +81,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return isActive();
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
     }
 }

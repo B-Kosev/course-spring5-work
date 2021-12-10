@@ -23,21 +23,33 @@ public class DataInitializer implements ApplicationRunner {
     private ArticleService articleService;
 
     private final List<User> DEFAULT_USERS = List.of(
-            new User("admin", "admin","admin", "Admin123&"));
+            new User("Default", "Admin", "admin", "Admin123&")
+    );
 
     private final List<Article> DEFAULT_ARTICLES = List.of(
-            new Article("New in Spring", "Non-blocking reactive WebFlux services..."),
-            new Article("Spring Data MongoDB - What's new?", "References between MongoDB collections support"),
-            new Article("Spring Security - is it easy?", "Nope"));
+            new Article("New in Spring", "Non-blocking reactive WebFlux web services ..."),
+            new Article("Spring Data Mongo DB - What's New?", "References between Mongo DB collections supported by Spring Ddata ..."),
+            new Article("Spring Security - is It Easy?", "Even easier with Kotlin DSL ...")
+    );
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (userService.count()==0){
-            log.info("Successfully created users: {}",  DEFAULT_USERS.stream().map(userService::createUser).collect(Collectors.toList()));
+        if (userService.count() == 0) {
+            log.info("Successfully created users: {}",
+                    DEFAULT_USERS.stream().map(userService::create).collect(Collectors.toList()));
         }
-
-        if (articleService.count()==0){
-            log.info("Successfully created articles: {}",  DEFAULT_ARTICLES.stream().map(articleService::createArticle).collect(Collectors.toList()));
+        if (articleService.count() == 0) {
+            List<User> users = userService.findAll();
+            if (users.size() > 0) {
+                User author = users.get(0);
+                log.info("Successfully created articles: {}",
+                        DEFAULT_ARTICLES.stream()
+                                .map(article -> {
+                                    article.setAuthorId(author.getId());
+                                    return article;
+                                })
+                                .map(articleService::create).collect(Collectors.toList()));
+            }
         }
     }
 }
