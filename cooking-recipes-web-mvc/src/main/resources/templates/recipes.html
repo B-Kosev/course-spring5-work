@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+    <link rel="stylesheet" th:href="@{/recipes.css}"/>
+</head>
+<body>
+<h2>Recipes</h2>
+<table>
+    <tr>
+        <th>Author Name</th>
+        <th>Recipe Name</th>
+        <th>Short description</th>
+        <th>Long description</th>
+        <th>Preparing time</th>
+        <th>Products</th>
+        <th>Created</th>
+        <th>Modified</th>
+    </tr>
+    <tr th:each="recipe:${recipes}">
+        <td th:text="${recipe.authorName}">No author name</td>
+        <td th:text="${recipe.name}">No recipe name</td>
+        <td th:text="${recipe.shortDescription}">No short description</td>
+        <td th:text="${recipe.longDescription}">No long description</td>
+        <td th:text="${recipe.preparingTime}">No preparing time</td>
+        <td th:text="${recipe.products}">No products</td>
+        <td th:text="${recipe.created}">No creation date</td>
+        <td th:text="${recipe.modified}">No modification date</td>
+    </tr>
+</table>
+</body>
+</html>
