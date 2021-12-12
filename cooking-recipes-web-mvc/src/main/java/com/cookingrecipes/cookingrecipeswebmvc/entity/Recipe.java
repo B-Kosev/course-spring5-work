@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document(collection = "recipes")
 @Data
@@ -43,6 +44,7 @@ public class Recipe {
     @Size(min=2,max=80,message = "Recipe name must be between 2 and 80 characters long.")
     private String name;
 
+    @NonNull
     @Size(min=2,max=256,message = "Recipe's short description name must be between 2 and 256 characters long.")
     private String shortDescription;
 
@@ -53,9 +55,9 @@ public class Recipe {
     private int preparingTime;
 
     @NonNull
-    private String products;
+    private List<String> products;
 
-    private String tags;
+    private List<String> tags;
     private LocalDateTime created = LocalDateTime.now();
     private LocalDateTime modified = LocalDateTime.now();
 }

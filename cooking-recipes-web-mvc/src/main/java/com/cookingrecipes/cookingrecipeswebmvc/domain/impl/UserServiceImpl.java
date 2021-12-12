@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         user.setModified(LocalDateTime.now());
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setStatus("active");
+        user.setActive(true);
         User created = userRepository.insert(user);
         created.setPassword("");
         return created;

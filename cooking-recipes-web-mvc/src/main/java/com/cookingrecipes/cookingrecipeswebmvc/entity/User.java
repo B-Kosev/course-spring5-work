@@ -3,18 +3,25 @@ package com.cookingrecipes.cookingrecipeswebmvc.entity;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Document(collection = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class User {
+public class User implements UserDetails {
     //    идентификатор на записа (ObjectID - 24 символа hexadecimal);
 //    уникално име на потребителя;
 //    login име (username - до 15 символа - word characters);
@@ -44,12 +51,37 @@ public class User {
     private String password;
 
     private String gender;
-    private String role = "USER";
+    private List<String> roles = List.of("USER");
 
     @Size(min = 2, max = 512, message = "Description length must be between 2 and 512 characters.")
     private String description;
 
-    private String status = "active";
+    private boolean active = true;
     private LocalDateTime created = LocalDateTime.now();
     private LocalDateTime modified = LocalDateTime.now();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> "ROLE_"+role).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isActive();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
 }
