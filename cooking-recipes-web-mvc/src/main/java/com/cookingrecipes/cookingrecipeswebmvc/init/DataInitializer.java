@@ -27,7 +27,7 @@ public class DataInitializer implements ApplicationRunner {
 
     private final List<User> DEFAULT_USERS = List.of(
             new User("Admin", "admin", "Admin1!"),
-            new User("User","user","User1!")
+            new User("User", "user", "User1!")
     );
 
     private final List<Recipe> DEFAULT_RECIPES = List.of(
@@ -37,7 +37,7 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (userService.count() == 0){
+        if (userService.count() == 0) {
             log.info("Successfully created users: {}",
                     DEFAULT_USERS.stream().map(userService::create).collect(Collectors.toList()));
         }

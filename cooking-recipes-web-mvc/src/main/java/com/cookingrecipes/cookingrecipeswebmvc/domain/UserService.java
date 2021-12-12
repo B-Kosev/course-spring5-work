@@ -8,6 +8,7 @@ public interface UserService {
     List<User> findAll();
     User findById(String id);
     User findByName(String name);
+    User findByUsername(String username);
     User create(User user);
     User update(User user);
     User deleteById(String id);
