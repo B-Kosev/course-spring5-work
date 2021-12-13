@@ -17,6 +17,7 @@
         <th>Products</th>
         <th>Created</th>
         <th>Modified</th>
+        <th>Photo</th>
     </tr>
     <tr th:each="recipe:${recipes}">
         <td th:text="${recipe.authorName}">No author name</td>
@@ -27,6 +28,7 @@
         <td th:text="${recipe.products}">No products</td>
         <td th:text="${recipe.created}">No creation date</td>
         <td th:text="${recipe.modified}">No modification date</td>
+        <td><img th:if="${recipe.imageUrl}" th:src="@{${recipe.imageUrl}}" alt="No photo" width="64" height="64"></td>
     </tr>
 </table>
 </body>
