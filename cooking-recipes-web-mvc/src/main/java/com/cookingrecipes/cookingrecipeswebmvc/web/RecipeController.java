@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cookingrecipes.cookingrecipeswebmvc.domain.RecipeService;
+import com.cookingrecipes.cookingrecipeswebmvc.service.RecipeService;
 
 import lombok.extern.slf4j.Slf4j;
 
