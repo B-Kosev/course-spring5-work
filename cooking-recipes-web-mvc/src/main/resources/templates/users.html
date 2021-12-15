@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+    <link rel="stylesheet" th:href="@{/recipes.css}"/>
+</head>
+<body>
+<h2>Recipes</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Gender</th>
+        <th>Description</th>
+        <th>Active</th>
+        <th>Created</th>
+        <th>Modified</th>
+        <th>Photo</th>
+    </tr>
+    <tr th:each="user:${users}">
+        <td th:text="${user.name}">No name specified</td>
+        <td th:text="${user.username}">No username specified</td>
+        <td th:text="${user.gender}">No gender specified</td>
+        <td th:text="${user.description}">No description specified</td>
+        <td th:text="${user.active}"></td>
+        <td th:text="${user.created}">No creation date</td>
+        <td th:text="${user.modified}">No modification date</td>
+        <td><img th:if="${user.imageUrl}" th:src="@{${user.imageUrl}}" alt="No photo" width="64" height="64"></td>
+    </tr>
+</table>
+</body>
+</html>

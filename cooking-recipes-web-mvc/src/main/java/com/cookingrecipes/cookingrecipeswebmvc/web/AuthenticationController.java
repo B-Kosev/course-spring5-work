@@ -24,7 +24,7 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("/register")
-	public String getOfferForm(Model model) {
+	public String getRegisterForm(Model model) {
 		if (!model.containsAttribute("user")) {
 			model.addAttribute("user", new User());
 		}
@@ -34,7 +34,7 @@ public class AuthenticationController {
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute("user") User user) {
 		authenticationService.register(user);
-		return "redirect:login";
+		return "redirect:/auth/login";
 	}
 
 	@GetMapping("/login")
@@ -53,11 +53,11 @@ public class AuthenticationController {
 		User user = authenticationService.login(username, password);
 
 		if (user == null) {
-			// nqkuv error
+			// TODO: add exception
 			return "redirect:login";
 		}
 		httpSession.setAttribute("user", user);
-		return "redirect:/";
+		return "redirect:/recipes";
 	}
 
 	@RequestMapping("/logout")

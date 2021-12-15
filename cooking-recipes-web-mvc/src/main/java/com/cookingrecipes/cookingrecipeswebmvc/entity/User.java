@@ -65,6 +65,7 @@ public class User implements UserDetails {
 	@Size(min = 2, max = 512, message = "Description length must be between 2 and 512 characters.")
 	private String description;
 
+	private Status status = Status.ACTIVE;
 	private boolean active = true;
 	private LocalDateTime created = LocalDateTime.now();
 	private LocalDateTime modified = LocalDateTime.now();
